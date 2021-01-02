@@ -819,6 +819,12 @@ impl Ui {
 
     /// Shows a button with the given color.
     /// If the user clicks the button, a full color picker is shown.
+    pub fn color_edit_button_lcha(&mut self, lcha: &mut Lcha) -> Response {
+        widgets::color_picker::color_edit_button_lcha(self, lcha)
+    }
+
+    /// Shows a button with the given color.
+    /// If the user clicks the button, a full color picker is shown.
     pub fn color_edit_button_hsva(&mut self, hsva: &mut Hsva) -> Response {
         widgets::color_picker::color_edit_button_hsva(self, hsva)
     }
@@ -838,9 +844,9 @@ impl Ui {
     /// The given color is in `sRGBA` space without premultiplied alpha.
     /// If unsure, what "premultiplied alpha" is, then this is probably the function you want to use.
     pub fn color_edit_button_srgba_unmultiplied(&mut self, srgba: &mut [u8; 4]) -> Response {
-        let mut hsva = Hsva::from_srgba_unmultiplied(*srgba);
-        let response = self.color_edit_button_hsva(&mut hsva);
-        *srgba = hsva.to_srgba_unmultiplied();
+        let mut lcha = Lcha::from_srgba_unmultiplied(*srgba);
+        let response = self.color_edit_button_lcha(&mut lcha);
+        *srgba = lcha.to_srgba_unmultiplied();
         response
     }
 
@@ -848,9 +854,9 @@ impl Ui {
     /// If the user clicks the button, a full color picker is shown.
     /// The given color is in linear RGBA space with premultiplied alpha
     pub fn color_edit_button_rgba_premultiplied(&mut self, rgba: &mut [f32; 4]) -> Response {
-        let mut hsva = Hsva::from_rgba_premultiplied(*rgba);
-        let response = self.color_edit_button_hsva(&mut hsva);
-        *rgba = hsva.to_rgba_premultiplied();
+        let mut lcha = Lcha::from_rgba_premultiplied(*rgba);
+        let response = self.color_edit_button_lcha(&mut lcha);
+        *rgba = lcha.to_rgba_premultiplied();
         response
     }
 
@@ -859,9 +865,9 @@ impl Ui {
     /// The given color is in linear RGBA space without premultiplied alpha.
     /// If unsure, what "premultiplied alpha" is, then this is probably the function you want to use.
     pub fn color_edit_button_rgba_unmultiplied(&mut self, rgba: &mut [f32; 4]) -> Response {
-        let mut hsva = Hsva::from_rgba_unmultiplied(*rgba);
-        let response = self.color_edit_button_hsva(&mut hsva);
-        *rgba = hsva.to_rgba_unmultiplied();
+        let mut lcha = Lcha::from_rgba_unmultiplied(*rgba);
+        let response = self.color_edit_button_lcha(&mut lcha);
+        *rgba = lcha.to_rgba_unmultiplied();
         response
     }
 }
